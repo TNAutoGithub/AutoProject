@@ -1,0 +1,56 @@
+1. git config --global credential.helper 'cache --timeout=99999999999'
+Luu username và password cho l?n sau kh?i h?i.
+
+2. Cách t?o 1 repo và push lên git.
+a. Lên github t?o 1 project m?i, sau có copy link source.
+b. Vào thu m?c project du?i local, m? git bash.
+c. git init                                          //Kh?i t?o git project
+d. git commit -m "first commit"                      //Commit d?u tiên
+e. git remote add origin <source_link>               
+//Liên k?t project du?i local v?i project trên git d?a vào sourcelink. 
+//Origin là tên mình d?t nhu là 1 nickname c?a sourcelink dó, vì sau này có th? mình s? liên k?t 1 project local v?i nhi?u sourcelink.
+f. git push -u origin master                         //Ð?y t?t c? data du?i local lên git ? branch master. -u d? t?o branch m?i trên git.
+
+3. git clone <source_link>
+Clone source t? m?t repo có s?n trên m?ng.
+ví d?: git clone https://github.com/VietQuoc/SAT-Robot.git
+
+4. git status                           //Ki?m tra tình tr?ng local dã thay d?i nh?ng gì (so v?i phiên b?n mình pull/clone v? tru?c dó).
+5. git checkout -b <branch_name>        //T?o branch m?i du?i local. Fail n?u branch dã có s?n.
+6. git checkout <branch_name>           //Switch sang branch có s?n du?i local.
+7. git branch -D <branch_name>          //Xóa branch du?i local. Xóa branch trên git thì lên web xóa.
+8. git stash                            //Luu l?i các thay d?i khi chua commit, thu?ng r?t h?u d?ng khi b?n mu?n d?i sang 1 branch khác mà l?i dang làm d? ? branch hi?n t?i.
+
+9. git pull origin <branch_name>        //Kéo t?t c? code t? sourcelink origin ? nhánh <branch_name> v? branch hi?n t?i ? local. Thành công n?u version ? trên git cao hon ? local. Ngu?c l?i conflict.
+10. git rebase <branch_name>            //Ðè code bên <branch_name> local qua branch hi?n t?i dang d?ng local.
+11. git reset origin/<branch_name>      //Reset t?t c? các code ? local chua push lên git. thêm --hard n?u không mu?n gi? thay d?i ? local.
+12. git diff origin/<branch_name>       //Xem s? khác nhau gi?a branch local dang d?ng và branch <branch_name> trên git.
+
+13. git add <file_name>                 //Thêm file. Ý nghia: ch?n file d? chu?n b? gói vào commit và push lên trên git v?i nh?ng thay d?i ? local.
+14. git rm <file_name>                  //Xóa file. Ý nghia: ch?n file d? chu?n b? gói vào commit và push lên trên git v?i l?nh là xóa file dó.
+15. git mv file oldname.txt file_newname.txt      //Rename/move file.
+16. git commit -m "Message"				//Commit nh?ng thay d?i dã ch?n cùng v?i message. Tru?c khi push có th? commit nhi?u l?n, nh?ng thay d?i v?n còn ? du?i local cho d?n khi push lên.
+17. git diff COMMIT1_ID COMMIT2_ID      //Xem s? khác nhau gi?a 2 commit.
+18. git push origin <branch_name>       //Up t?t c? nh?ng commit ? du?i local lên trên git origin ? <branch_name>.
+
+19. Sau khi push t?t c? code lên <branch_name> trên git và review code ok thì t?i giai do?n merge code vào master ho?c feature_branch. Ví d? merge vào master.
+a. N?u code trên master chua có gì thay d?i k? t? khi ta pull code v?, ch? tính ? nh?ng file mà ta thay d?i, nh?ng file khác ko quan tâm. Merge tr?c ti?p trên web thành công.
+b. Ngu?c l?i ta ph?i x? lý conflict.
+X? lý conflit:
+- Commit h?t t?t c? nh?ng code mu?n change
+- Ð?ng t?i branch dang làm vi?c, dùng dàm rebase v?i branch mu?n merge code vào ? dây là master:  git rebase origin master
+- File b? conflict s? báo trên gitbash: "CONFLICT (content): Merge conflict in Test.txt". Trên Eclipse s? hi?n màu d? ? icon file r?t d? nh?n bi?t.
+- C?u trúc do?n code b? conflict nhu sau:
+				<<<<<<< HEAD
+				//Code c?a version1
+				=======
+				//Code c?a version2
+				>>>>>>> Commit message
+- S?a l?i do?n code trên tùy tru?ng h?p c? th?: gi? l?i c? 2 code ho?c gi? l?i 1 ho?c update code t?t hon. Xóa nh?ng ph?n du git t? thêm vào. Ví d? s?a l?i là:
+				//Code c?a version1
+				//Code c?a version2
+- Sau khi s?a xong thì add/rm l?i file dó và g?i hàm rebase ti?p, n?u còn b? conflict thì x? lý nhu trên: 
+	git add Test.txt
+	git rebase --continue
+- Sau khi h?t b? conflict: git push origin master
+ho?c "git push -f origin master" force push
